@@ -1,16 +1,14 @@
+import subprocess
 import modal
 
-image = (
-    modal.Image.from_dockerfile("Dockerfile")
-)
-
 app = modal.App("ubuntu-desktop")
+
+image = modal.Image.from_dockerfile("Dockerfile")
 
 @app.function(
     image=image,
     gpu="T4",
     timeout=86400,
 )
-@modal.web_server(port=6080)
 def desktop():
-    pass
+    subprocess.run(["/startup.sh"], check=True)
