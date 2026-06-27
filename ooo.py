@@ -27,16 +27,11 @@ image = (
     .run_commands("chmod +x /startup.sh")
 )
 
-@app.function(
-    image=image,
-    gpu="T4",
-    timeout=86400,
-)
+@app.function(image=image, gpu="T4", timeout=86400)
 @modal.web_server(port=6080)
 def desktop():
-    subprocess.Popen(["/startup.sh"])
+    subprocess.Popen(["bash", "/startup.sh"])
 
-    # Keep the function alive
     import time
     while True:
-        time.sleep(60000)
+        time.sleep(60)
