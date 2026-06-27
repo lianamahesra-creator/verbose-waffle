@@ -1,7 +1,7 @@
 import modal
 
 image = (
-    modal.Image.from_dockerfile(".")
+    modal.Image.from_dockerfile("Dockerfile")
 )
 
 app = modal.App("ubuntu-desktop")
